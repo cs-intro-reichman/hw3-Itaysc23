@@ -24,26 +24,87 @@ public class Anagram {
 			if (!pass) break;
 		}
 		System.out.println(pass ? "test passed" : "test Failed");
-	}  
+	} 
+ 
 
 	// Returns true if the two given strings are anagrams, false otherwise.
 	public static boolean isAnagram(String str1, String str2) {
-		// Replace the following statement with your code
-		return false;
-	}
+	String processedStr1 = preProcess(str1);
+    String processedStr2 = preProcess(str2);
+    
+    // 1. בדיקת אורך (כפי שהיה)
+    if (processedStr1.length() != processedStr2.length()) {
+        return false;
+    }
+
+    // 2. יצירת מערך תדירויות בגודל 27 (26 אותיות + 1 לרווחים)
+    int[] charCounts = new int[27];
+    int N = processedStr1.length();
+
+    // 3. ספירת תווים במחרוזת הראשונה: מגדילים מונה
+    for (int i = 0; i < N; i++) {
+        char ch = processedStr1.charAt(i);
+        if (ch != ' ') {
+            // המרה לערך מ-0 עד 25 (עבור 'a' עד 'z')
+            charCounts[ch - 'a']++;
+        } else {
+            // רווח ממופה לאינדקס 26
+            charCounts[26]++;
+        }
+    }
+
+    // 4. הפחתת תווים מהמחרוזת השנייה: מקטינים מונה
+    for (int i = 0; i < N; i++) {
+        char ch = processedStr2.charAt(i);
+        if (ch != ' ') {
+            charCounts[ch - 'a']--;
+        } else {
+            charCounts[26]--;
+        }
+    }
+
+    // 5. בדיקת התוצאה: אם כל המונים הם 0, המחרוזות הן אנאגרמות
+    for (int count : charCounts) {
+        if (count != 0) {
+            return false;
+        }
+    }
+    
+    return true;
+}
 	   
 	// Returns a preprocessed version of the given string: all the letter characters are converted
 	// to lower-case, and all the other characters are deleted, except for spaces, which are left
 	// as is. For example, the string "What? No way!" becomes "whatnoway"
 	public static String preProcess(String str) {
 		// Replace the following statement with your code
-		return "";
-	} 
+		StringBuilder result = new StringBuilder();
+    for (int i = 0; i < str.length(); i++) {
+        char ch = str.charAt(i); 
+        if (Character.isLetter(ch)) {
+            result.append(Character.toLowerCase(ch));
+        } else if (ch == ' ') { // ***התיקון***: הוספת תנאי לשמירת רווחים
+            result.append(ch);
+        } 
+    }
+    return result.toString();
+}
 	   
 	// Returns a random anagram of the given string. The random anagram consists of the same
 	// characters as the given string, re-arranged in a random order. 
 	public static String randomAnagram(String str) {
-		// Replace the following statement with your code
-		return "";
-	}
+		StringBuilder original = new StringBuilder(str);
+    StringBuilder randomResult = new StringBuilder();
+    
+    while (original.length() > 0) {
+        int randomIndex = (int) (Math.random() * original.length());
+        
+        char randomChar = original.charAt(randomIndex);
+        randomResult.append(randomChar);
+        
+        original.deleteCharAt(randomIndex);
+    }
+    
+    return randomResult.toString();
+}
 }
