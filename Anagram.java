@@ -68,9 +68,9 @@ public class Anagram {
         if (Character.isLetter(ch)) {
             result.append(Character.toLowerCase(ch));
         } 
-        
-    return result.toString();
-}
+    } 
+    return result.toString(); 
+} 
 	   
 	// Returns a random anagram of the given string. The random anagram consists of the same
 	// characters as the given string, re-arranged in a random order. 
