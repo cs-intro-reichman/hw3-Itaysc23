@@ -29,10 +29,9 @@ public class Anagram {
 
 	// Returns true if the two given strings are anagrams, false otherwise.
 	public static boolean isAnagram(String str1, String str2) {
-	String processedStr1 = preProcess(str1);
+    String processedStr1 = preProcess(str1);
     String processedStr2 = preProcess(str2);
     
-    // 1. אם האורכים שונים - אין אנאגרמה
     if (processedStr1.length() != processedStr2.length()) {
         return false;
     }
@@ -42,24 +41,23 @@ public class Anagram {
     for (int i = 0; i < processedStr1.length(); i++) {
         char charToFind = processedStr1.charAt(i);
         
-        int index = -1;
+        int indexInStr2 = -1;
         for (int j = 0; j < tempStr2.length(); j++) {
             if (tempStr2.charAt(j) == charToFind) {
-                index = j; 
-                break;     
+                indexInStr2 = j;
+                break; 
             }
         }
         
-        if (index == -1) {
+        if (indexInStr2 == -1) {
             return false;
-        } else {
-            tempStr2.deleteCharAt(index);
         }
+        
+        tempStr2.deleteCharAt(indexInStr2);
     }
     
     return true;
-}
-	   
+}	   
 	// Returns a preprocessed version of the given string: all the letter characters are converted
 	// to lower-case, and all the other characters are deleted, except for spaces, which are left
 	// as is. For example, the string "What? No way!" becomes "whatnoway"
