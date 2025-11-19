@@ -79,12 +79,12 @@ public class Anagram {
 	public static String preProcess(String str) {
 		StringBuilder result = new StringBuilder();
     for (int i = 0; i < str.length(); i++) {
-        char ch = str.charAt(i); 
+        char ch = str.charAt(i);
         if (Character.isLetter(ch)) {
             result.append(Character.toLowerCase(ch));
-        } else if (ch == ' ') {
+        } else if (ch == ' ') { 
             result.append(ch);
-        }
+        } 
     }
     return result.toString();
 }
