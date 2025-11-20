@@ -53,16 +53,18 @@ public class Anagram {
 	// as is. For example, the string "What? No way!" becomes "whatnoway"
 	public static String preProcess(String str) {
 		String lowercaseStr = str.toLowerCase();
-		String alphabet = "abcdefghijklmnopqrstuvwxyz";
-		String processedString = "";
-		for (int i = 0; i < lowercaseStr.length(); i++) {
-			char currentChar = lowercaseStr.charAt(i);
-			if (alphabet.indexOf(currentChar) != -1) {
-				processedString = processedString + currentChar;
-			}
-		}
-		return processedString;
-	} 
+    String alphabet = "abcdefghijklmnopqrstuvwxyz";
+    String processedString = "";
+    
+    for (int i = 0; i < lowercaseStr.length(); i++) {
+        char currentChar = lowercaseStr.charAt(i);
+        // התיקון: הוספת בדיקה אם התו הוא רווח
+        if (alphabet.indexOf(currentChar) != -1 || currentChar == ' ') {
+            processedString = processedString + currentChar;
+        }
+    }
+    return processedString;
+}
 	   
 	// Returns a random anagram of the given string. The random anagram consists of the same
 	// characters as the given string, re-arranged in a random order. 
